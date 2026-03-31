@@ -45,15 +45,29 @@ app.post("/entry", async (req, res) => {
 
 app.get("/dashboard", async (req, res) => {
     try {
+
+        const todayStart = new Date();
+        todayStart.setHours(0, 0, 0, 0);
+
+        const todayEnd = new Date();
+        todayEnd.setHours(23, 59, 59, 999);
+
+        const todayEntry = await Journal.findOne({
+            createdAt: { $gte: todayStart, $lte: todayEnd }
+        });
+
         const entries = await Journal.find().sort({ createdAt: -1 }).select('content createdAt');
 
         const previewEntries = entries.map(e => ({
             _id: e._id,
             createdAt: e.createdAt,
-            preview: e.content.substring(0, 100),
+            preview: e.content.slice(0, 180),
 
         }));
-        res.json(previewEntries);
+        res.json({
+            entries: previewEntries,
+            hasEntryToday: !!todayEntry
+        });
     } catch(err) {
         res.status(500).json({ error: err.message });
     }
