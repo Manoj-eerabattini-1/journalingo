@@ -7,6 +7,7 @@ import { JournalInput } from './Components/JournalInput'
 import { Dashboard } from './Components/Dashboard'
 import { Navigate, Route, Routes } from 'react-router-dom'
 import { FullEntry } from './Components/FullEntry'
+import { EditEntry } from './Components/EditEntry'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -22,6 +23,8 @@ function App() {
             <Route path='/dashboard' element={ <Dashboard /> } />
 
             <Route path='/entry/:id' element={ <FullEntry /> } />
+
+            <Route path='/entry/:id/edit' element={ <EditEntry />} />
           </Routes>
         </main>
       </div>
