@@ -28,17 +28,18 @@ export function Dashboard() {
     return (
         <div>
             {hasEntryToday ?  (
-            
-                // <p className="text-2xl m-10 bg-green-200 w-[95%] rounded-lg mx-auto border border-green-300 p-3 text-green-800 text-center">
-                //     Good Job!! You have logged your entry today.
-                // </p>
-                <div className="text-2xl m-10 bg-green-200 w-[95%] rounded-lg mx-auto border border-green-300 p-3 text-green-800 text-center">
+                <div className="text-2xl m-10 bg-green-300 w-[95%] rounded-lg mx-auto border border-green-300 p-3 text-green-800 text-center">
                     { streak === 0 && <p>Start your streak today</p> }
                     { streak === 1 && <p>First Day! Great Job! See you tomorrow😉</p> }
                     { streak > 1 && <p>🔥 {streak}-day streak! Keet it Up!! </p> }
                 </div>
             ) : (
-                <JournalInput onSave={fetchEntries} />
+                <div>
+                    <p>
+                        Log your entry today to keep your streak alive!
+                    </p>
+                    <JournalInput onSave={fetchEntries} />
+                </div>
             )}
             {entries.length == 0 ? (
                 <p className="text-gray-600 text-center mt-10 text-2xl">
